@@ -1,36 +1,54 @@
-{%extends "base.html"%} 
-{% load bootstrap4 %}
+
+{% load bootstrap3 %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <!-- Empty div -->
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            {% if form.errors %}
-            <p> Some Information Might be Incorrect </p>
-            {% endif %}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="text-center">Sign Up</h3>
+
+<div class="form">
+    <div class="form-bg">
+        <div class="form-container">
+            <div class="form-horizontal">
+                <!-- Empty div -->
+                <div class="col-md-4">
+                    <h3 class="title">My Account</h3>
                 </div>
-                <div class="panel-body">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        {% bootstrap_form form %}
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
+                <div class="form-icon">
+                    <i class="fa fa-user-circle"></i>
+                </div>
+                <div class="col-md-4">
+                    {% if form.errors %}
+                    <p> Password or Username is incorrect </p>
+                    {% endif %}
+                    <div class="panel panel-default">
+        
+                        <div class="panel-heading">
+                            <h2 style="color: rgb(12, 12, 206);">Welcome to K-Awwards </h2>
+                            <h4 style="color: chocolate;"><em>"Get inspired and inspire others to innovate"</em></h4>
+                            <h3 class="text-center">Sign In</h3>
                         </div>
-
-                        <p class="">Already have an account? <a class="pl-5" href="/accounts/login">Sign In</a></p>
-                        <input type="hidden" name="next" value="{{next}}">
-                    </form>
+                        <div class="panel-body">
+        
+                            <form action="/registration/login/" method="post">
+                                {% csrf_token %}
+                                {% bootstrap_form form%}
+        
+                                <div class="form-group">
+                                    <input type="submit" class="btn signin" value="Login">
+                                </div>
+                                <p class="">Don't have an account? <a class="pl-5" href="/registration/register">Signup</a> here</p>
+        
+                                <input type="hidden" name="next" value="{{next}}">
+        
+                            </form>
+        
+                        </div>
+        
+                    </div>
+        
                 </div>
-
+                <!-- empty div -->
+                <div class="col-md-4"></div>
             </div>
-
         </div>
-        <div class="col-md-4"></div>
     </div>
 </div>
-
 {% endblock %}
+
