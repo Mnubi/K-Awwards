@@ -16,13 +16,13 @@ Including another URLconf
 from django.urls import path
 from django.conf.urls import include
 from django.contrib import admin
-from django.contrib.auth import views 
+from django.contrib.auth import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('awwardapp.urls')),
+    path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('registration/', include('registration.backends.simple.urls')),
-    path('logout/', views.logout_then_login),
+    path('logout/', views.logout_then_login), 
 ]

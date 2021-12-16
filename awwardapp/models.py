@@ -11,6 +11,9 @@ class Profile(models.Model):
   contact=models.CharField(max_length=100)
   user = models.OneToOneField(User,on_delete = models.CASCADE,null=True)
 
+def __str__(self):
+        return self.user.username
+
 def save_profile(self):
     self.save()
 
