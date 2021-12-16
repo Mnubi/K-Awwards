@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http.response import HttpResponse, HttpResponseRedirect
 from .models import Profile, Project
 from django.contrib.auth.models import User
-from awwardapp.forms import UpdateProfileForm, SignUpForm, UpdateProfileForm, UpdateUserForm
+from awwardapp.forms import UpdateProfileForm, SignUpForm, UpdateProfileForm, UpdateUserForm, ProjectForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
@@ -78,10 +78,4 @@ def post_project(request):
     else:
         form = ProjectForm()
     return render(request, 'projects.html', {"form": form})
-
-@login_required(login_url='/accounts/login')
-def project(request, id):
-    project = Project.objects.get(id=id)
-    reviews = Rates.objects.all()
-    return render(request, 'view-project.html', {"project": project, "reviews": reviews})
 
