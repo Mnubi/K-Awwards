@@ -8,7 +8,9 @@ from cloudinary.models import CloudinaryField
 class Profile(models.Model):
   profile_pic = CloudinaryField("image")
   bio = models.TextField()
-  contact=models.CharField(max_length=100)
+  contact=models.TextField()
+  gender = models.TextField(max_length=10) 
+  occupation=models.TextField(max_length=50)
   user = models.OneToOneField(User,on_delete = models.CASCADE,null=True)
 
 def __str__(self):

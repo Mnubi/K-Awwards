@@ -38,20 +38,19 @@ def post_project(request):
         form = showprojectform()
     return render(request, 'post_project.html', {"form": form})
 
-def update_profile(request,id):
-    user = User.objects.get(id=id)
-    profile = Profile.objects.get(user_id = user)
-    form = UpdateProfileForm(instance=profile)
-    if request.method == "POST":
-            form = UpdateProfileForm(request.POST,request.FILES,instance=profile)
-            if form.is_valid():  
-                
-                profile = form.save(commit=False)
-                profile.save()
-                return redirect('profile') 
-            
-    ctx = {"form":form}
-    return render(request, 'update_profile.html', ctx)
+def update_profile(request):
+    current_user= request.user
+    profile = Profile.objects.filter(user_id=current_user.id).first()
+    form=UpdateProfileForm()
+    if request.method=='POST':
+        form=UpdateProfileForm(request.POST,request.FILES)
+        
+        if form.is_valid():
+            form.instance.user=request.user
+            form.save()
+            redirect("/profile")
+    
+    return render(request, "registration/update_profile.html", {"form":form, "profile":profile})
 
 def create_profile(request):
     current_user = request.user
