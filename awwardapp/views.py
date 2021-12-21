@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http.response import HttpResponse, HttpResponseRedirect
-from .models import Profile, Project
+from .models import Profile, Project, Rating
 from django.contrib.auth.models import User
 from awwardapp.forms import ProfileForm, UpdateProfileForm, SignUpForm, UpdateProfileForm, UpdateUserForm, ProjectForm, showprojectform
 from django.contrib.auth.forms import AuthenticationForm
@@ -82,6 +82,28 @@ def search(request):
     else:
         message = 'Not found'
         return render(request, 'search.html', {'danger': message})   
+
+@login_required(login_url='/accounts/login/')
+def rate(request,id):
+    if request.method == 'POST':
+        project = Project.objects.get(id = id)
+        current_user = request.user
+        design_rate = request.POST['design']
+        content_rate = request.POST['content']
+        usability_rate = request.POST['usability']
+
+        Rating.objects.create(
+            project=project,
+            user=current_user,
+            design_rate=design_rate,
+            usability_rate=usability_rate,
+            content_rate=content_rate,
+            avg_rate=round((float(design_rate)+float(usability_rate)+float(content_rate))/3,2),)
+
+        return render(request,"project_details.html",{"project":project})
+    else:
+        project = Project.objects.get(id = id) 
+        return render(request,"project_details.html",{"project":project})
 
 # class ProjectList(APIView):
 #     permission_classes = (IsAdminOrReadOnly,)

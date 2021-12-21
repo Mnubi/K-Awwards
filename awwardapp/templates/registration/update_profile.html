@@ -1,14 +1,20 @@
-
 {% load bootstrap3 %}
 {% load static %}
 
 {% block content %}
 <br><br>
 <div class="container">
-    <h3 class="text-center">Edit Profile</h3>
+    <h3 class="text-center">Edit Personal Profile</h3>
     <hr>
     <div class="row">
-        <div class="col-md-2"> </div>
+        <div class="col-md-3">
+            <div class="text-center">
+                <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+                <h6>Upload a different photo...</h6>
+
+                <input type="file" class="form-control">
+            </div>
+        </div>
         <div class="col-md-7">
 
             <div class="panel panel-default">
@@ -16,18 +22,35 @@
                 <div class="panel-body">
                     <form method="POST">
                         {% csrf_token %}
-                        
-                        {% bootstrap_form form %}
+
+                        <label class="col-lg-3 control-label">First name:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" value="">
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Last name:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Company:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" value="">
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <input type="submit" class="btn btn-info col-md-12" value="Post">
                         </div>
                         <input type="hidden" name="next" value="{{next}}">
                     </form>
-                </div>
             </div>
         </div>
-
     </div>
+
 </div>
+
+<hr>
 {% endblock %}

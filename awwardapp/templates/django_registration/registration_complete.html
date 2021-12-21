@@ -7,3 +7,64 @@
 <link rel="stylesheet" href="{% static 'css/baseinsta.css' %}">
 
 {% endblock %}
+{% block content %}
+{{block.super}}
+
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search for Project..." aria-label="Search for..."
+            aria-describedby="basic-addon2" name="search_term">
+        <div class="input-group-append">
+            <button class="btn" type="button">Search</button>
+        </div>
+    </div>
+
+    <div class="container mt-5" style="gap: 15px;">
+
+        <h1 class="text-center">POSTED PROJECTS</h1>
+
+        <div class="col-md-3">
+            <form action="/post/project/">
+                <input type="submit" style=" background :linear-gradient(to left,#fd1d1d,#fcb045)"
+                    value="submit your project" />
+            </form>
+        </div>
+
+        <div class="row md-6" id="">
+            {% for proj in project %}
+            <div class="col-md-12 col-md-6 col-lg-6" id="main" style="gap:5px;">
+                
+                <div class="card col-md-6 " id="" style="height:fit-content;margin: 10px;padding: 5px;">
+                    
+                    <div class="card-body ">
+                        <a href="{% url 'project_details' proj.id %}">
+                            <img src="{{ proj.image.url }}" class="card-img-top responsive" alt="Personal"
+                                style="object-fit: cover;height:360px;">
+                        </a>
+                        <p class="fade-item mb-2"> Title: {{ proj.title}}</p>
+                        <div class="d-flex justify-content-between location-date">
+                            <div>
+                                <p class="text-capitalise">category: {{ proj.category}}</p>
+                            </div>
+                            <div>
+                                <a href="{{ proj.url }}"><button class="btn btn-outline-info">visit site</button></a>
+                                <br> <br>
+                                <a href="{% url 'project_details' proj.id %}"><button
+                                        class="btn btn-outline-info">Rate project</button></a>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+
+
+    {% endblock %}
